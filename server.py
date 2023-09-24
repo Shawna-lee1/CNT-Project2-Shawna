@@ -32,9 +32,19 @@ if len(sys.argv) != 2:
 
 server_port = int(sys.argv[1])
 
-# Create a UDP socket
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-server_socket.bind(('0.0.0.0', server_port))
+
+try:
+    # Create a UDP socket
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server_socket.bind(('0.0.0.0', server_port))
+
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+server_socket.listen(1)  # Listen for one incoming connection
+client_socket, client_address = server_socket.accept()
+
+
 
 # Listen for incoming connections and respond
 while True:
