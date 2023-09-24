@@ -2,6 +2,7 @@
 import socket
 import struct
 import sys
+import time
 
 # Constants from the specification
 MAX_UDP_PACKET_SIZE = 424
@@ -59,5 +60,15 @@ while True:
 
     # Send data or ACK packets as needed
 
-# Close the server socket (this code may never be reached)
+while True:
+    try:
+        data, client_address = server_socket.recvfrom(MAX_UDP_PACKET_SIZE)
+        # Rest of your code to handle incoming packets
+
+    except socket.timeout:
+        print("ERROR: Connection timed out (no data received for 10 seconds)")
+        # Handle the timeout error as needed, e.g., close the connection or take appropriate action
+
+
+# Close the server socket 
 server_socket.close()
