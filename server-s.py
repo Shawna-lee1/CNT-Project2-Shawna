@@ -35,6 +35,10 @@ server_port = int(sys.argv[1])
 
 # Create a UDP socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+if not (0 <= server_port <= 65535):
+    sys.stderr.write("ERROR: Invalid port number. Port must be in the range 0-65535.\n")
+    sys.exit(1)
+    
 server_socket.bind(('0.0.0.0', server_port))
 
 # Listen for incoming connections and respond
